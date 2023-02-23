@@ -5504,6 +5504,7 @@ namespace IPS_Patch_Creator
                         sw.WriteLine("key_area_key_application_0c = ");
                         sw.WriteLine("key_area_key_application_0d = ");
                         sw.WriteLine("key_area_key_application_0e = ");
+                        sw.WriteLine("key_area_key_application_0f = ");
                         sw.WriteLine("package1_key_00 = ");
                         sw.WriteLine("package1_key_01 = ");
                         sw.WriteLine("package1_key_02 = ");
@@ -5525,6 +5526,7 @@ namespace IPS_Patch_Creator
                         sw.WriteLine("package2_key_0c = ");
                         sw.WriteLine("package2_key_0d = ");
                         sw.WriteLine("package2_key_0e = ");
+                        sw.WriteLine("package2_key_0f = ");
                     }
                 }
                 string filetext = File.ReadAllText("tools/keys.dat");
