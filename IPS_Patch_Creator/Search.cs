@@ -44,7 +44,7 @@ namespace IPS_Patch_Creator
                 }
                 else
                 {
-                    richTextBox1.Text += "No file chosen";
+                    richTextBox1.Text += "\n\nNo file chosen";
                 }
             }
 

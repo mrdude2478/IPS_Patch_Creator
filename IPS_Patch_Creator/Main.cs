@@ -62,7 +62,7 @@ namespace IPS_Patch_Creator
         /**************************************************/
         /**************** START OF VARIABLES **************/
         /**************************************************/
-        string Version = "1.5.6-2";
+        string Version = "1.5.6-4";
         string Loaderpath; //create variable for package3 file path location.
         string shaValue; //create a variable to store the sha256 value.
         string[] goodArray; //create an array to store firmware files we want to check.
@@ -1414,7 +1414,23 @@ namespace IPS_Patch_Creator
                     toggle = 1;
                 }
 
-                else if (SDKVersion >= 14300) //#fw 14.0.0 or higher
+                else if (SDKVersion >= 14300 & SDKVersion < 16200) //#fw 14.0.0 or higher
+                {
+                    if (checkBox_ES_override.Checked == true)
+                    {
+                        //get text from es override text box
+                        string es_overide = textBox_es_override.Text.ToLower();
+                        find = (es_overide).ToLower();
+                    }
+                    else
+                    {
+                        find = ("FF97......52A9........FFC30491C0035FD6").ToLower();
+                        find = find.Replace(".", "..");
+                    }
+                    toggle = 1;
+                }
+
+                else if (SDKVersion >= 16200) //#fw 14.0.0 or higher
                 {
                     if (checkBox_ES_override.Checked == true)
                     {
@@ -2245,9 +2261,16 @@ namespace IPS_Patch_Creator
                         toggle = 0;
                     }
 
-                    else if (SDKVersion >= 15300)
+                    else if (SDKVersion >= 15300 & SDKVersion < 16200)
                     {
                         find = ("e0230091.faff97f3").ToLower(); //patch 3 0x64aa8
+                        find2 = (".fdff35a8.").ToLower(); //patch 2 0x654a0
+                        toggle = 0;
+                    }
+
+                    else if (SDKVersion >= 16200)
+                    {
+                        find = ("E0230091..FF97F303002AE0").ToLower(); //patch 3 0x64aa8
                         find2 = (".fdff35a8.").ToLower(); //patch 2 0x654a0
                         toggle = 0;
                     }
@@ -4328,7 +4351,7 @@ namespace IPS_Patch_Creator
                         toggle = 0;
                     }
 
-                    else if (SDKVersion >= 15300)
+                    else if (SDKVersion >= 15300 & SDKVersion < 16200)
                     {
                         if (checkBox_fs_override.Checked == true)
                         {
@@ -4343,6 +4366,25 @@ namespace IPS_Patch_Creator
                             find2 = ("003688...1F").ToLower(); //0036883E
                             find = find.Replace(".", "..");
                             find2 = find2.Replace(".", "..");
+                        }
+                        toggle = 0;
+                    }
+
+                    else if (SDKVersion >= 16200)
+                    {
+                        if (checkBox_fs_override.Checked == true)
+                        {
+                            string fs1 = textBox_fs1_override.Text.ToLower();
+                            string fs2 = textBox_fs2_overide.Text.ToLower();
+                            find = (fs1);
+                            find2 = (fs2);
+                        }
+                        else
+                        {
+                            find = ("94081C00121F050071.10.0054").ToLower(); //1C00121F0500714101
+                            find2 = ("0036........1F....71....0054..1E48391F..0071").ToLower(); //0036883E
+                            //find = find.Replace(".", "..");
+                            //find2 = find2.Replace(".", "..");
                         }
                         toggle = 0;
                     }
@@ -4502,7 +4544,7 @@ namespace IPS_Patch_Creator
                         toggle = 0;
                     }
 
-                    else if (SDKVersion >= 15300)
+                    else if (SDKVersion >= 15300 & SDKVersion < 16200)
                     {
                         if (checkBox_fs_override.Checked == true)
                         {
@@ -4517,6 +4559,25 @@ namespace IPS_Patch_Creator
                             find2 = ("003688...1F").ToLower(); //0036883E
                             find = find.Replace(".", "..");
                             find2 = find2.Replace(".", "..");
+                        }
+                        toggle = 0;
+                    }
+
+                    else if (SDKVersion >= 16200)
+                    {
+                        if (checkBox_fs_override.Checked == true)
+                        {
+                            string fs1 = textBox_fs1_override.Text.ToLower();
+                            string fs2 = textBox_fs2_overide.Text.ToLower();
+                            find = (fs1);
+                            find2 = (fs2);
+                        }
+                        else
+                        {
+                            find = ("94081C00121F050071.10.0054").ToLower(); //1C00121F0500714101
+                            find2 = ("0036........1F....71....0054..1E48391F..0071").ToLower(); //0036883E
+                            //find = find.Replace(".", "..");
+                            //find2 = find2.Replace(".", "..");
                         }
                         toggle = 0;
                     }
