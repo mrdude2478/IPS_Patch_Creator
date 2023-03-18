@@ -151,6 +151,7 @@ namespace IPS_Patch_Creator
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkBox_skipexfat = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage_Loader.SuspendLayout();
@@ -473,6 +474,7 @@ namespace IPS_Patch_Creator
             // 
             // tabPage_FS
             // 
+            this.tabPage_FS.Controls.Add(this.checkBox_skipexfat);
             this.tabPage_FS.Controls.Add(this.checkBox_FS_PatchesINI);
             this.tabPage_FS.Controls.Add(this.checkBox_FS_clean);
             this.tabPage_FS.Controls.Add(this.button_fs_files);
@@ -1411,6 +1413,16 @@ namespace IPS_Patch_Creator
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
             // 
+            // checkBox_skipexfat
+            // 
+            this.checkBox_skipexfat.AutoSize = true;
+            this.checkBox_skipexfat.Location = new System.Drawing.Point(237, 239);
+            this.checkBox_skipexfat.Name = "checkBox_skipexfat";
+            this.checkBox_skipexfat.Size = new System.Drawing.Size(77, 17);
+            this.checkBox_skipexfat.TabIndex = 21;
+            this.checkBox_skipexfat.Text = "Skip ExFat";
+            this.checkBox_skipexfat.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AllowDrop = true;
@@ -1587,6 +1599,7 @@ namespace IPS_Patch_Creator
         private System.Windows.Forms.ToolStripMenuItem removePatchesiniToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cleanOldFilesToolStripMenuItem;
         private System.Windows.Forms.Button button_search;
+        private System.Windows.Forms.CheckBox checkBox_skipexfat;
     }
 }
 

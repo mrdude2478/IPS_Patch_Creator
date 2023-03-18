@@ -62,7 +62,7 @@ namespace IPS_Patch_Creator
         /**************************************************/
         /**************** START OF VARIABLES **************/
         /**************************************************/
-        string Version = "1.5.6-4";
+        string Version = "1.5.6-5";
         string Loaderpath; //create variable for package3 file path location.
         string shaValue; //create a variable to store the sha256 value.
         string[] goodArray; //create an array to store firmware files we want to check.
@@ -98,6 +98,7 @@ namespace IPS_Patch_Creator
         int killfsroutine = 0; //stop patches.ini being written if offset search failed
         int killesroutine = 0; //stop ips patches being written if offset search in es2 failed
         int killnfim = 0;
+        int clean_message = 1;
         //Set size limits for nca files to process - read from config database.
         int ESmin;
         int ESmax;
@@ -3655,19 +3656,22 @@ namespace IPS_Patch_Creator
                         fs_array++;
                     }
 
-                    //reset array search variable again, so we don't crash!
-                    fs_array = 0;
-                    foreach (var item in goodArray)
+                    if (!checkBox_skipexfat.Checked)
                     {
-                        //use hactool to find the fat nca we want.
-                        fs_exfat_find();
-
-                        if (console_box.Text.Contains("found"))
+                        //reset array search variable again, so we don't crash!
+                        fs_array = 0;
+                        foreach (var item in goodArray)
                         {
-                            break;
-                        }
+                            //use hactool to find the fat nca we want.
+                            fs_exfat_find();
 
-                        fs_array++;
+                            if (console_box.Text.Contains("found"))
+                            {
+                                break;
+                            }
+
+                            fs_array++;
+                        }
                     }
 
                     //we are now finished with the array so empty it..
@@ -3714,7 +3718,7 @@ namespace IPS_Patch_Creator
                         console_box.Clear();
 
                         //We should probably put a check here so this code doesn't run if we didn't find the files
-                        if (FAT != "" || EXFAT != "")
+                        if (FAT != "")
                         {
                             //Show info that the GUI is not broken...
                             richTextBox_FS.Text += "\n\n" + "Please Wait - Extracting files now. This can take a few seconds!";
@@ -3728,7 +3732,10 @@ namespace IPS_Patch_Creator
                                 fs_nca_fat_extraction();
 
                                 //extract the exfat nca we found
-                                fs_nca_exfat_extraction();
+                                if (!checkBox_skipexfat.Checked)
+                                {
+                                    fs_nca_exfat_extraction();
+                                }
                             }
                             else
                             {
@@ -3737,38 +3744,52 @@ namespace IPS_Patch_Creator
                             }
 
                             //error check - exit routine if we were unable to decrypt the fs files.
-                            if (!File.Exists("FS.kip1-FAT.DEC") || !File.Exists("FS.kip1-ExFAT.DEC"))
+                            if (!File.Exists("FS.kip1-FAT.DEC"))
                             {
                                 richTextBox_FS.ForeColor = Color.Red;
-                                richTextBox_FS.Text += "\n\nUnable to decrypt one or both of the FS files";
+                                richTextBox_FS.Text += "\n\nUnable to decrypt the FS files";
                                 richTextBox_FS.Text += "\n\nIt's possible that you need to update keys.dat with the latest key to decrypt the files,";
                                 richTextBox_FS.Text += " or you may need to adjust the FS NCA settings in the config page.";
                                 button_fs_files.Enabled = true;
                                 SystemSounds.Exclamation.Play();
+                                clean_message = 0;
+                                clean();
                                 return;
                             }
 
                             //Get SHA256 values of FS.Kip1 from fat and exfat folder for our IPS patch names.
                             fs_fat_sha();
-                            fs_exfat_sha();
+                            if (!checkBox_skipexfat.Checked)
+                            {
+                                fs_exfat_sha();
+                            }
 
                             //We are finished with the temp files now so clean up.
                             fs_clean_temp();
 
                             //Now we have the decrypted file - we can search for offsets...
                             fs_fat_Offset_Search();
-                            fs_exfat_Offset_Search();
+                            if (!checkBox_skipexfat.Checked)
+                            {
+                                fs_exfat_Offset_Search();
+                            }
 
                             //Everything should now be in place to make a patch
                             fs_fat_Patch_Creation();
-                            fs_exfat_Patch_Creation();
+                            if (!checkBox_skipexfat.Checked)
+                            {
+                                fs_exfat_Patch_Creation();
+                            }
 
                             if (killfsroutine != 1)
                             {
                                 //show patches.ini info
                                 richTextBox_FS.Text += "\n\n" + "***************** Info for patches.ini *****************";
                                 fs_Fat_Patches_ini();
-                                fs_ExFat_Patches_ini();
+                                if (!checkBox_skipexfat.Checked)
+                                {
+                                    fs_ExFat_Patches_ini();
+                                }
                                 richTextBox_FS.Text += "\n**********************************************************";
                             }
 
@@ -4994,19 +5015,23 @@ namespace IPS_Patch_Creator
                         fs_array++;
                     }
 
-                    //reset array search variable again, so we don't crash!
-                    fs_array = 0;
-                    foreach (var item in goodArray)
+                    //if skip searching for exfat if checkbox is not checked
+                    if (!checkBox_skipexfat.Checked)
                     {
-                        //use hactool to find the fat nca we want.
-                        fs_exfat_find();
-
-                        if (console_box.Text.Contains("found"))
+                        //reset array search variable again, so we don't crash!
+                        fs_array = 0;
+                        foreach (var item in goodArray)
                         {
-                            break;
-                        }
+                            //use hactool to find the fat nca we want.
+                            fs_exfat_find();
 
-                        fs_array++;
+                            if (console_box.Text.Contains("found"))
+                            {
+                                break;
+                            }
+
+                            fs_array++;
+                        }
                     }
 
                     //we are now finished with the array so empty it..
@@ -5053,7 +5078,7 @@ namespace IPS_Patch_Creator
                         console_box.Clear();
 
                         //We should probably put a check here so this code doesn't run if we didn't find the files
-                        if (FAT != "" || EXFAT != "")
+                        if (FAT != "")
                         {
                             //Show info that the GUI is not broken...
                             richTextBox_FS.Text += "\n\n" + "Please Wait - Extracting files now. This can take a few seconds!";
@@ -5067,7 +5092,10 @@ namespace IPS_Patch_Creator
                                 fs_nca_fat_extraction();
 
                                 //extract the exfat nca we found
-                                fs_nca_exfat_extraction();
+                                if (!checkBox_skipexfat.Checked)
+                                {
+                                    fs_nca_exfat_extraction();
+                                }
                             }
                             else
                             {
@@ -5076,38 +5104,52 @@ namespace IPS_Patch_Creator
                             }
 
                             //error check - exit routine if we were unable to decrypt the fs files.
-                            if (!File.Exists("FS.kip1-FAT.DEC") || !File.Exists("FS.kip1-ExFAT.DEC"))
+                            if (!File.Exists("FS.kip1-FAT.DEC"))
                             {
                                 richTextBox_FS.ForeColor = Color.Red;
-                                richTextBox_FS.Text += "\n\nUnable to decrypt one or both of the FS files";
+                                richTextBox_FS.Text += "\n\nUnable to decrypt the FS files";
                                 richTextBox_FS.Text += "\n\nIt's possible that you need to update keys.dat with the latest key to decrypt the files,";
                                 richTextBox_FS.Text += " or you may need to adjust the FS NCA settings in the config page.";
                                 button_fs_files.Enabled = true;
                                 SystemSounds.Exclamation.Play();
+                                clean_message = 0;
+                                clean();
                                 return;
                             }
 
                             //Get SHA256 values of FS.Kip1 from fat and exfat folder for our IPS patch names.
                             fs_fat_sha();
-                            fs_exfat_sha();
+                            if (!checkBox_skipexfat.Checked)
+                            {
+                                fs_exfat_sha();
+                            }
 
                             //We are finished with the temp files now so clean up.
                             fs_clean_temp();
 
                             //Now we have the decrypted file - we can search for offsets...
                             fs_fat_Offset_Search();
-                            fs_exfat_Offset_Search();
+                            if (!checkBox_skipexfat.Checked)
+                            {
+                                fs_exfat_Offset_Search();
+                            }
 
                             //Everything should now be in place to make a patch
                             fs_fat_Patch_Creation();
-                            fs_exfat_Patch_Creation();
+                            if (!checkBox_skipexfat.Checked)
+                            {
+                                fs_exfat_Patch_Creation();
+                            }
 
                             if (killfsroutine != 1)
                             {
                                 //show patches.ini info
                                 richTextBox_FS.Text += "\n\n" + "***************** Info for patches.ini *****************";
                                 fs_Fat_Patches_ini();
-                                fs_ExFat_Patches_ini();
+                                if (!checkBox_skipexfat.Checked)
+                                {
+                                    fs_ExFat_Patches_ini();
+                                }
                                 richTextBox_FS.Text += "\n**********************************************************";
                             }
 
@@ -6784,6 +6826,28 @@ namespace IPS_Patch_Creator
 
         private void cleanOldFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            clean_message = 1;
+            clean();
+        }
+
+        private void button_search_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Form search = new Form_search();
+                this.Hide();
+                search.ShowDialog();
+                this.Show();
+            }
+
+            catch (Exception error)
+            {
+                MessageBox.Show("Error is: " + error.Message);
+            }
+        }
+
+        void clean()
+        {
             try
             {
                 string dir_temp = "Temp";
@@ -6837,31 +6901,19 @@ namespace IPS_Patch_Creator
                     DirectoryInfo directory = new DirectoryInfo(dir_temp);
                     directory.Delete(true);
                 }
-                
+
                 if (Directory.Exists(dir_files))
                 {
                     DirectoryInfo directory = new DirectoryInfo(dir_files);
                     directory.Delete(true);
                 }
 
-                MessageBox.Show("Old temp and decrypted files have been cleaned up.", "Clean Up Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (clean_message == 1)
+                {
+                    MessageBox.Show("Old temp and decrypted files have been cleaned up.", "Clean Up Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            catch (Exception error)
-            {
-                MessageBox.Show("Error is: " + error.Message);
-            }
-        }
-
-        private void button_search_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Form search = new Form_search();
-                this.Hide();
-                search.ShowDialog();
-                this.Show();
-            }
-
+            
             catch (Exception error)
             {
                 MessageBox.Show("Error is: " + error.Message);
