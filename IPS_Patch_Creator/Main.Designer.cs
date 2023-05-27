@@ -57,6 +57,7 @@ namespace IPS_Patch_Creator
             this.contextMenuStrip_es2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage_FS = new System.Windows.Forms.TabPage();
+            this.checkBox_skipexfat = new System.Windows.Forms.CheckBox();
             this.checkBox_FS_PatchesINI = new System.Windows.Forms.CheckBox();
             this.checkBox_FS_clean = new System.Windows.Forms.CheckBox();
             this.button_fs_files = new System.Windows.Forms.Button();
@@ -132,9 +133,9 @@ namespace IPS_Patch_Creator
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.atmosphereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hekateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.locpickRCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hactoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hactoolnetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sysPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Database = new System.Windows.Forms.ToolStripMenuItem();
             this.weblinksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wildcardsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -151,7 +152,6 @@ namespace IPS_Patch_Creator
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.checkBox_skipexfat = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage_Loader.SuspendLayout();
@@ -485,6 +485,16 @@ namespace IPS_Patch_Creator
             this.tabPage_FS.TabIndex = 2;
             this.tabPage_FS.Text = "FS";
             this.tabPage_FS.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_skipexfat
+            // 
+            this.checkBox_skipexfat.AutoSize = true;
+            this.checkBox_skipexfat.Location = new System.Drawing.Point(237, 239);
+            this.checkBox_skipexfat.Name = "checkBox_skipexfat";
+            this.checkBox_skipexfat.Size = new System.Drawing.Size(77, 17);
+            this.checkBox_skipexfat.TabIndex = 21;
+            this.checkBox_skipexfat.Text = "Skip ExFat";
+            this.checkBox_skipexfat.UseVisualStyleBackColor = true;
             // 
             // checkBox_FS_PatchesINI
             // 
@@ -1249,9 +1259,9 @@ namespace IPS_Patch_Creator
             this.loadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.atmosphereToolStripMenuItem,
             this.hekateToolStripMenuItem,
-            this.locpickRCMToolStripMenuItem,
             this.hactoolToolStripMenuItem,
-            this.hactoolnetToolStripMenuItem});
+            this.hactoolnetToolStripMenuItem,
+            this.sysPatchToolStripMenuItem});
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.loadToolStripMenuItem.Text = "Gits";
@@ -1260,37 +1270,37 @@ namespace IPS_Patch_Creator
             // atmosphereToolStripMenuItem
             // 
             this.atmosphereToolStripMenuItem.Name = "atmosphereToolStripMenuItem";
-            this.atmosphereToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.atmosphereToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.atmosphereToolStripMenuItem.Text = "Atmosphere";
             this.atmosphereToolStripMenuItem.Click += new System.EventHandler(this.atmosphereToolStripMenuItem_Click);
             // 
             // hekateToolStripMenuItem
             // 
             this.hekateToolStripMenuItem.Name = "hekateToolStripMenuItem";
-            this.hekateToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.hekateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hekateToolStripMenuItem.Text = "Hekate";
             this.hekateToolStripMenuItem.Click += new System.EventHandler(this.hekateToolStripMenuItem_Click);
-            // 
-            // locpickRCMToolStripMenuItem
-            // 
-            this.locpickRCMToolStripMenuItem.Name = "locpickRCMToolStripMenuItem";
-            this.locpickRCMToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.locpickRCMToolStripMenuItem.Text = "Locpick RCM";
-            this.locpickRCMToolStripMenuItem.Click += new System.EventHandler(this.locpickRCMToolStripMenuItem_Click);
             // 
             // hactoolToolStripMenuItem
             // 
             this.hactoolToolStripMenuItem.Name = "hactoolToolStripMenuItem";
-            this.hactoolToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.hactoolToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hactoolToolStripMenuItem.Text = "Hactool";
             this.hactoolToolStripMenuItem.Click += new System.EventHandler(this.hactoolToolStripMenuItem_Click);
             // 
             // hactoolnetToolStripMenuItem
             // 
             this.hactoolnetToolStripMenuItem.Name = "hactoolnetToolStripMenuItem";
-            this.hactoolnetToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.hactoolnetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hactoolnetToolStripMenuItem.Text = "Hactoolnet";
             this.hactoolnetToolStripMenuItem.Click += new System.EventHandler(this.hactoolnetToolStripMenuItem_Click);
+            // 
+            // sysPatchToolStripMenuItem
+            // 
+            this.sysPatchToolStripMenuItem.Name = "sysPatchToolStripMenuItem";
+            this.sysPatchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sysPatchToolStripMenuItem.Text = "Sys-Patch";
+            this.sysPatchToolStripMenuItem.Click += new System.EventHandler(this.sysPatchToolStripMenuItem_Click);
             // 
             // Database
             // 
@@ -1304,14 +1314,14 @@ namespace IPS_Patch_Creator
             // weblinksToolStripMenuItem
             // 
             this.weblinksToolStripMenuItem.Name = "weblinksToolStripMenuItem";
-            this.weblinksToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.weblinksToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.weblinksToolStripMenuItem.Text = "Weblinks";
             this.weblinksToolStripMenuItem.Click += new System.EventHandler(this.weblinksToolStripMenuItem_Click);
             // 
             // wildcardsToolStripMenuItem
             // 
             this.wildcardsToolStripMenuItem.Name = "wildcardsToolStripMenuItem";
-            this.wildcardsToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.wildcardsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.wildcardsToolStripMenuItem.Text = "Wildcards";
             this.wildcardsToolStripMenuItem.Click += new System.EventHandler(this.wildcardsToolStripMenuItem_Click);
             // 
@@ -1413,16 +1423,6 @@ namespace IPS_Patch_Creator
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
             // 
-            // checkBox_skipexfat
-            // 
-            this.checkBox_skipexfat.AutoSize = true;
-            this.checkBox_skipexfat.Location = new System.Drawing.Point(237, 239);
-            this.checkBox_skipexfat.Name = "checkBox_skipexfat";
-            this.checkBox_skipexfat.Size = new System.Drawing.Size(77, 17);
-            this.checkBox_skipexfat.TabIndex = 21;
-            this.checkBox_skipexfat.Text = "Skip ExFat";
-            this.checkBox_skipexfat.UseVisualStyleBackColor = true;
-            // 
             // Main
             // 
             this.AllowDrop = true;
@@ -1487,7 +1487,6 @@ namespace IPS_Patch_Creator
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem atmosphereToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hekateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem locpickRCMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Database;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage_Loader;
@@ -1600,6 +1599,7 @@ namespace IPS_Patch_Creator
         private System.Windows.Forms.ToolStripMenuItem cleanOldFilesToolStripMenuItem;
         private System.Windows.Forms.Button button_search;
         private System.Windows.Forms.CheckBox checkBox_skipexfat;
+        private System.Windows.Forms.ToolStripMenuItem sysPatchToolStripMenuItem;
     }
 }
 

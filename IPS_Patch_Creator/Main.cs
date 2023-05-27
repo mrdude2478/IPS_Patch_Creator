@@ -62,7 +62,7 @@ namespace IPS_Patch_Creator
         /**************************************************/
         /**************** START OF VARIABLES **************/
         /**************************************************/
-        string Version = "1.5.6-5";
+        string Version = "1.5.6-6";
         string Loaderpath; //create variable for package3 file path location.
         string shaValue; //create a variable to store the sha256 value.
         string[] goodArray; //create an array to store firmware files we want to check.
@@ -119,6 +119,26 @@ namespace IPS_Patch_Creator
         {
             InitializeComponent();
             instance = this;
+
+            bool exists = System.IO.Directory.Exists("./tools");
+            if (!exists)
+            {
+                System.IO.Directory.CreateDirectory("./tools");
+            }
+            if (!File.Exists("./tools/hactool.exe"))
+            {
+                MessageBox.Show("Hactool is missing.\n\nYour web browser will now open. Download the release, extract hactool and place it in the tools directory.", "Hactool Missing!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    string myval = "https://github.com/mrdude2478/IPS_Patch_Creator/releases";
+                    System.Diagnostics.Process.Start(myval);
+                }
+
+                catch (Exception error)
+                {
+                    MessageBox.Show("Error is: " + error.Message);
+                }
+            }
 
             //get data from textboxes so we can send to the wilcards form
             tb_espatch = textBox_es_patch;
@@ -744,20 +764,6 @@ namespace IPS_Patch_Creator
             }
         }
 
-        private void locpickRCMToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string myval = "https://github.com/shchmue/Lockpick_RCM/releases";
-                System.Diagnostics.Process.Start(myval);
-            }
-
-            catch (Exception error)
-            {
-                MessageBox.Show("Error is: " + error.Message);
-            }
-        }
-
         private void hactoolToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -777,6 +783,20 @@ namespace IPS_Patch_Creator
             try
             {
                 string myval = "https://github.com/Thealexbarney/LibHac/releases";
+                System.Diagnostics.Process.Start(myval);
+            }
+
+            catch (Exception error)
+            {
+                MessageBox.Show("Error is: " + error.Message);
+            }
+        }
+
+        private void sysPatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string myval = "https://github.com/ITotalJustice/sys-patch/releases";
                 System.Diagnostics.Process.Start(myval);
             }
 
