@@ -4411,7 +4411,7 @@ namespace IPS_Patch_Creator
                         toggle = 0;
                     }
 
-                    else if (SDKVersion >= 16200)
+                    else if (SDKVersion >= 16200 & SDKVersion < 17500)
                     {
                         if (checkBox_fs_override.Checked == true)
                         {
@@ -4424,6 +4424,25 @@ namespace IPS_Patch_Creator
                         {
                             find = ("94081C00121F050071.10.0054").ToLower(); //1C00121F0500714101
                             find2 = ("0036........1F....71....0054..1E48391F..0071").ToLower(); //0036883E
+                            //find = find.Replace(".", "..");
+                            //find2 = find2.Replace(".", "..");
+                        }
+                        toggle = 0;
+                    }
+
+                    else if (SDKVersion >= 17500)
+                    {
+                        if (checkBox_fs_override.Checked == true)
+                        {
+                            string fs1 = textBox_fs1_override.Text.ToLower();
+                            string fs2 = textBox_fs2_overide.Text.ToLower();
+                            find = (fs1);
+                            find2 = (fs2);
+                        }
+                        else
+                        {
+                            find = ("94081C00121F050071.10.0054").ToLower(); //1C00121F0500714101
+                            find2 = ("40....35......F8......A9......A9......A9").ToLower(); //0036883E
                             //find = find.Replace(".", "..");
                             //find2 = find2.Replace(".", "..");
                         }
@@ -4464,7 +4483,7 @@ namespace IPS_Patch_Creator
                                     FATPatch1 = index - 5;
                                 }
                             }
-                            else if (SDKVersion >= 15300)
+                            else if (SDKVersion >= 15300 & SDKVersion < 17500)
                             {
                                 if (checkBox_fs_override.Checked == true)
                                 {
@@ -4473,6 +4492,18 @@ namespace IPS_Patch_Creator
                                 else
                                 {
                                     FATPatch1 = index - 3;
+                                }
+                            }
+                            
+                            else if (SDKVersion >= 17500)
+                            {
+                                if (checkBox_fs_override.Checked == true)
+                                {
+                                    FATPatch1 = index;
+                                }
+                                else
+                                {
+                                    FATPatch1 = index -3;
                                 }
                             }
 
@@ -4490,15 +4521,34 @@ namespace IPS_Patch_Creator
                         {
                             int index = match2.Index;
                             index = index / 2; //make sure we divide by 2 again as we multiplied above...
-                            
-                            if (checkBox_fs_override.Checked == true)
+
+                            if (SDKVersion < 17500)
                             {
-                                FATPatch2 = index;
+                                if (checkBox_fs_override.Checked == true)
+                                {
+                                    FATPatch2 = index;
+                                }
+                                else
+                                {
+                                    FATPatch2 = index - 2;
+                                }
                             }
-                            else
+
+                            else if (SDKVersion >= 17500)
                             {
-                                FATPatch2 = index - 2;
+                                if (checkBox_fs_override.Checked == true)
+                                {
+                                    FATPatch2 = index;
+                                }
+                                else
+                                {
+                                    FATPatch2 = index;
+                                }
                             }
+
+
+
+
                             richTextBox_FS.Text += "\n" + "Wildcard search pattern2 found at offset: 0x" + index.ToString("X8");
                             richTextBox_FS.Text += "\n" + "Probable patch2 offset location: 0x" + FATPatch2.ToString("X8");
 
@@ -4604,7 +4654,7 @@ namespace IPS_Patch_Creator
                         toggle = 0;
                     }
 
-                    else if (SDKVersion >= 16200)
+                    else if (SDKVersion >= 16200 & SDKVersion < 17500)
                     {
                         if (checkBox_fs_override.Checked == true)
                         {
@@ -4622,6 +4672,27 @@ namespace IPS_Patch_Creator
                         }
                         toggle = 0;
                     }
+
+                    else if (SDKVersion >= 17500)
+                    {
+                        if (checkBox_fs_override.Checked == true)
+                        {
+                            string fs1 = textBox_fs1_override.Text.ToLower();
+                            string fs2 = textBox_fs2_overide.Text.ToLower();
+                            find = (fs1);
+                            find2 = (fs2);
+                        }
+                        else
+                        {
+                            find = ("94081C00121F050071.10.0054").ToLower(); //1C00121F0500714101
+                            find2 = ("40....35......F8......A9......A9......A9").ToLower(); //0036883E
+                            //find = find.Replace(".", "..");
+                            //find2 = find2.Replace(".", "..");
+                        }
+                        toggle = 0;
+                    }
+
+
 
                     //toggle error check here if pattern is empty or not defined yet.
                     if (toggle == 0)
@@ -4683,14 +4754,31 @@ namespace IPS_Patch_Creator
                             int index = match2.Index;
                             index = index / 2; //make sure we divide by 2 again as we multiplied above...
 
-                            if (checkBox_fs_override.Checked == true)
+                            if (SDKVersion < 17500)
                             {
-                                ExFatPatch2 = index;
+
+                                if (checkBox_fs_override.Checked == true)
+                                {
+                                    ExFatPatch2 = index;
+                                }
+                                else
+                                {
+                                    ExFatPatch2 = index - 2;
+                                }
                             }
-                            else
+
+                            else if (SDKVersion >= 17500)
                             {
-                                ExFatPatch2 = index - 2;
+                                if (checkBox_fs_override.Checked == true)
+                                {
+                                    ExFatPatch2 = index;
+                                }
+                                else
+                                {
+                                    ExFatPatch2 = index;
+                                }
                             }
+
                             richTextBox_FS.Text += "\n" + "Wildcard search pattern2 found at offset: 0x" + index.ToString("X8");
                             richTextBox_FS.Text += "\n" + "Probable patch2 offset location: 0x" + ExFatPatch2.ToString("X8");
 
@@ -4759,7 +4847,23 @@ namespace IPS_Patch_Creator
                                 }
                             }
 
-                            else if (SDKVersion >= 15300) //#fw 15.0.0 or higher patch override code
+                            else if (SDKVersion >= 15300 & SDKVersion < 17500) //#fw 15.0.0 or higher patch override code
+                            {
+                                if (checkBox_fs_patch_override.Checked == true)
+                                {
+                                    string hexstring = textBox_fs_patch1.Text;
+                                    uint patch = uint.Parse(hexstring, System.Globalization.NumberStyles.AllowHexSpecifier);
+                                    patch = ReverseBytes(patch);
+                                    PatchBytes2 = BitConverter.GetBytes(patch);
+
+                                    string hexstring2 = textBox_fs_patch2.Text;
+                                    uint patch2 = uint.Parse(hexstring2, System.Globalization.NumberStyles.AllowHexSpecifier);
+                                    patch2 = ReverseBytes(patch2);
+                                    PatchBytes = BitConverter.GetBytes(patch2);
+                                }
+                            }
+
+                            else if (SDKVersion >= 17500) //#fw 15.0.0 or higher patch override code
                             {
                                 if (checkBox_fs_patch_override.Checked == true)
                                 {
@@ -4799,7 +4903,12 @@ namespace IPS_Patch_Creator
                             {
                                 writer.Write(PatchBytes);
                             }
-                            else if (SDKVersion >= 15300) //fw 15.0.0 - swap patches over
+                            else if (SDKVersion >= 15300 & SDKVersion < 17500) //fw 15.0.0 - swap patches over
+                            {
+                                writer.Write(PatchBytes2);
+                            }
+
+                            else if (SDKVersion >= 17500)
                             {
                                 writer.Write(PatchBytes2);
                             }
@@ -4825,9 +4934,14 @@ namespace IPS_Patch_Creator
                             {
                                 writer.Write(PatchBytes2);
                             }
-                            else if (SDKVersion >= 15300) //fw 15.0.0 - swap patches over
+                            else if (SDKVersion >= 15300 & SDKVersion < 17500) //fw 15.0.0 - swap patches over
                             {
                                 writer.Write(PatchBytes);
+                            }
+
+                            else if (SDKVersion >= 17500) //fw 15.0.0 - swap patches over
+                            {
+                                writer.Write(PatchBytes2);
                             }
 
                             writer.Write(EndBytes);
@@ -4890,7 +5004,23 @@ namespace IPS_Patch_Creator
                                 }
                             }
 
-                            else if (SDKVersion >= 15300) //#fw 15.0.0 or higher patch override code
+                            else if (SDKVersion >= 15300 & SDKVersion < 17500)
+                            {
+                                if (checkBox_fs_patch_override.Checked == true)
+                                {
+                                    string hexstring = textBox_fs_patch1.Text;
+                                    uint patch = uint.Parse(hexstring, System.Globalization.NumberStyles.AllowHexSpecifier);
+                                    patch = ReverseBytes(patch);
+                                    PatchBytes2 = BitConverter.GetBytes(patch);
+
+                                    string hexstring2 = textBox_fs_patch2.Text;
+                                    uint patch2 = uint.Parse(hexstring2, System.Globalization.NumberStyles.AllowHexSpecifier);
+                                    patch2 = ReverseBytes(patch2);
+                                    PatchBytes = BitConverter.GetBytes(patch2);
+                                }
+                            }
+
+                            else if (SDKVersion >= 17500) //#fw 17.0 - changed again....!
                             {
                                 if (checkBox_fs_patch_override.Checked == true)
                                 {
@@ -4930,7 +5060,11 @@ namespace IPS_Patch_Creator
                             {
                                 writer.Write(PatchBytes);
                             }
-                            else if (SDKVersion >= 15300) //fw 15.0.0 - swap patches over
+                            else if (SDKVersion >= 15300 & SDKVersion < 17500) //fw 15.0.0 - swap patches over
+                            {
+                                writer.Write(PatchBytes2);
+                            }
+                            else if (SDKVersion >= 17500) //fw 15.0.0 - swap patches over
                             {
                                 writer.Write(PatchBytes2);
                             }
@@ -4957,9 +5091,14 @@ namespace IPS_Patch_Creator
                                 writer.Write(PatchBytes2);
                             }
                             
-                            else if (SDKVersion >= 15300) //fw 15.0.0 - swap patches over
+                            else if (SDKVersion >= 15300 & SDKVersion < 17500) //fw 15.0.0 - swap patches over
                             {
                                 writer.Write(PatchBytes);
+                            }
+
+                            else if (SDKVersion >= 17500) //fw 15.0.0 - swap patches over
+                            {
+                                writer.Write(PatchBytes2);
                             }
                             writer.Write(EndBytes);
                             richTextBox_FS.Text += "\n" + "FS exfat ips patch written";
@@ -5335,12 +5474,19 @@ namespace IPS_Patch_Creator
                     richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval + ":0x4:" + Fat_patches_ini1 + ",1F2003D5";
                     richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval2 + ":0x4:" + Fat_patches_ini2 + ",E0031F2A";
                 }
-                else if (SDKVersion >= 15300)
+                else if (SDKVersion >= 15300 & SDKVersion < 17500)
                 {
                     richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval + ":0x4:" + Fat_patches_ini1 + ",E0031F2A";
                     richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval2 + ":0x4:" + Fat_patches_ini2 + ",1F2003D5";
                 }
-                    
+
+                else if (SDKVersion >= 17500)
+                {
+                    richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval + ":0x4:" + Fat_patches_ini1 + ",E0031F2A";
+                    richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval2 + ":0x4:" + Fat_patches_ini2 + ",E0031F2A";
+                }
+
+
 
                 string inipath = "bootloader\\patches.ini";
                 if (checkBox_FS_PatchesINI.Checked)
@@ -5360,12 +5506,17 @@ namespace IPS_Patch_Creator
                             sw.WriteLine(".nosigchk=0:0x" + hexval + ":0x4:" + Fat_patches_ini1 + ",1F2003D5");
                             sw.WriteLine(".nosigchk=0:0x" + hexval2 + ":0x4:" + Fat_patches_ini2 + ",E0031F2A");
                         }
-                        else if (SDKVersion >= 15300)
+                        else if (SDKVersion >= 15300 & SDKVersion < 17500)
                         {
                             sw.WriteLine(".nosigchk=0:0x" + hexval + ":0x4:" + Fat_patches_ini1 + ",E0031F2A");
                             sw.WriteLine(".nosigchk=0:0x" + hexval2 + ":0x4:" + Fat_patches_ini2 + ",1F2003D5");
                         }
-                            
+                        else if (SDKVersion >= 17500)
+                        {
+                            sw.WriteLine(".nosigchk=0:0x" + hexval + ":0x4:" + Fat_patches_ini1 + ",E0031F2A");
+                            sw.WriteLine(".nosigchk=0:0x" + hexval2 + ":0x4:" + Fat_patches_ini2 + ",E0031F2A");
+                        }
+
                         sw.Close();
                     }
                 }
@@ -5421,10 +5572,15 @@ namespace IPS_Patch_Creator
                     richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval + ":0x4:" + ExFat_patches_ini1 + ",1F2003D5";
                     richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval2 + ":0x4:" + ExFat_patches_ini2 + ",E0031F2A";
                 }
-                else if (SDKVersion >= 15300)
+                else if (SDKVersion >= 15300 & SDKVersion < 17500)
                 {
                     richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval + ":0x4:" + ExFat_patches_ini1 + ",E0031F2A";
                     richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval2 + ":0x4:" + ExFat_patches_ini2 + ",1F2003D5";
+                }
+                else if (SDKVersion >= 17500)
+                {
+                    richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval + ":0x4:" + ExFat_patches_ini1 + ",E0031F2A";
+                    richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval2 + ":0x4:" + ExFat_patches_ini2 + ",E0031F2A";
                 }
 
                 string inipath = "bootloader\\patches.ini";
@@ -5446,10 +5602,16 @@ namespace IPS_Patch_Creator
                             sw.WriteLine(".nosigchk=0:0x" + hexval2 + ":0x4:" + ExFat_patches_ini2 + ",E0031F2A");
                         }
 
-                        else if (SDKVersion >= 15300)
+                        else if (SDKVersion >= 15300 & SDKVersion < 17500)
                         {
                             sw.WriteLine(".nosigchk=0:0x" + hexval + ":0x4:" + ExFat_patches_ini1 + ",E0031F2A");
                             sw.WriteLine(".nosigchk=0:0x" + hexval2 + ":0x4:" + ExFat_patches_ini2 + ",1F2003D5");
+                        }
+
+                        else if (SDKVersion >= 17500)
+                        {
+                            sw.WriteLine(".nosigchk=0:0x" + hexval + ":0x4:" + ExFat_patches_ini1 + ",E0031F2A");
+                            sw.WriteLine(".nosigchk=0:0x" + hexval2 + ":0x4:" + ExFat_patches_ini2 + ",E0031F2A");
                         }
 
                         sw.WriteLine();
