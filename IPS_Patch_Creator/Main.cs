@@ -4442,7 +4442,7 @@ namespace IPS_Patch_Creator
                         else
                         {
                             find = ("94081C00121F050071.10.0054").ToLower(); //1C00121F0500714101
-                            find2 = ("40....35......F8......A9......A9......A9").ToLower(); //0036883E
+                            find2 = ("4010003602258052e0030191").ToLower(); //0036883E
                             //find = find.Replace(".", "..");
                             //find2 = find2.Replace(".", "..");
                         }
@@ -4685,7 +4685,7 @@ namespace IPS_Patch_Creator
                         else
                         {
                             find = ("94081C00121F050071.10.0054").ToLower(); //1C00121F0500714101
-                            find2 = ("40....35......F8......A9......A9......A9").ToLower(); //0036883E
+                            find2 = ("4010003602258052e0030191").ToLower(); //0036883E
                             //find = find.Replace(".", "..");
                             //find2 = find2.Replace(".", "..");
                         }
@@ -4939,9 +4939,9 @@ namespace IPS_Patch_Creator
                                 writer.Write(PatchBytes);
                             }
 
-                            else if (SDKVersion >= 17500) //fw 15.0.0 - swap patches over
+                            else if (SDKVersion >= 17500)
                             {
-                                writer.Write(PatchBytes2);
+                                writer.Write(PatchBytes);
                             }
 
                             writer.Write(EndBytes);
@@ -5096,9 +5096,9 @@ namespace IPS_Patch_Creator
                                 writer.Write(PatchBytes);
                             }
 
-                            else if (SDKVersion >= 17500) //fw 15.0.0 - swap patches over
+                            else if (SDKVersion >= 17500)
                             {
-                                writer.Write(PatchBytes2);
+                                writer.Write(PatchBytes);
                             }
                             writer.Write(EndBytes);
                             richTextBox_FS.Text += "\n" + "FS exfat ips patch written";
@@ -5483,7 +5483,7 @@ namespace IPS_Patch_Creator
                 else if (SDKVersion >= 17500)
                 {
                     richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval + ":0x4:" + Fat_patches_ini1 + ",E0031F2A";
-                    richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval2 + ":0x4:" + Fat_patches_ini2 + ",E0031F2A";
+                    richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval2 + ":0x4:" + Fat_patches_ini2 + ",1F2003D5";
                 }
 
 
@@ -5514,7 +5514,7 @@ namespace IPS_Patch_Creator
                         else if (SDKVersion >= 17500)
                         {
                             sw.WriteLine(".nosigchk=0:0x" + hexval + ":0x4:" + Fat_patches_ini1 + ",E0031F2A");
-                            sw.WriteLine(".nosigchk=0:0x" + hexval2 + ":0x4:" + Fat_patches_ini2 + ",E0031F2A");
+                            sw.WriteLine(".nosigchk=0:0x" + hexval2 + ":0x4:" + Fat_patches_ini2 + ",1F2003D5");
                         }
 
                         sw.Close();
@@ -5580,7 +5580,7 @@ namespace IPS_Patch_Creator
                 else if (SDKVersion >= 17500)
                 {
                     richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval + ":0x4:" + ExFat_patches_ini1 + ",E0031F2A";
-                    richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval2 + ":0x4:" + ExFat_patches_ini2 + ",E0031F2A";
+                    richTextBox_FS.Text += "\n" + ".nosigchk=0:0x" + hexval2 + ":0x4:" + ExFat_patches_ini2 + ",1F2003D5";
                 }
 
                 string inipath = "bootloader\\patches.ini";
@@ -5611,7 +5611,7 @@ namespace IPS_Patch_Creator
                         else if (SDKVersion >= 17500)
                         {
                             sw.WriteLine(".nosigchk=0:0x" + hexval + ":0x4:" + ExFat_patches_ini1 + ",E0031F2A");
-                            sw.WriteLine(".nosigchk=0:0x" + hexval2 + ":0x4:" + ExFat_patches_ini2 + ",E0031F2A");
+                            sw.WriteLine(".nosigchk=0:0x" + hexval2 + ":0x4:" + ExFat_patches_ini2 + ",1F2003D5");
                         }
 
                         sw.WriteLine();
