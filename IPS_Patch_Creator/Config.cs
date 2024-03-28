@@ -95,7 +95,7 @@ namespace IPS_Patch_Creator
             textBox_FSMIN.Text = "3000000";
             textBox_FSMAX.Text = "3500000";
             textBox_ESMIN.Text = "410000";
-            textBox_ESMAX.Text = "500000";
+            textBox_ESMAX.Text = "510000";
             textBox_NFIM_MIN.Text = "550000";
             textBox_NFIM_MAX.Text = "680000";
             save_config();
@@ -162,7 +162,7 @@ namespace IPS_Patch_Creator
 
                 cmd.CommandText = "INSERT INTO ES(min, max) VALUES(@min, @max)";
                 cmd.Parameters.AddWithValue("@min", "410000");
-                cmd.Parameters.AddWithValue("@max", "500000");
+                cmd.Parameters.AddWithValue("@max", "510000");
                 cmd.Prepare();
                 cmd.ExecuteNonQuery();
 
@@ -203,7 +203,7 @@ namespace IPS_Patch_Creator
                 textBox_FSMIN.Text = "3000000";
                 textBox_FSMAX.Text = "3500000";
                 textBox_ESMIN.Text = "410000";
-                textBox_ESMAX.Text = "500000";
+                textBox_ESMAX.Text = "510000";
                 textBox_NFIM_MIN.Text = "550000";
                 textBox_NFIM_MAX.Text = "680000";
 

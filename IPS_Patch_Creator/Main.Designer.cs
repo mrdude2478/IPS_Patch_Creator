@@ -1297,6 +1297,7 @@ namespace IPS_Patch_Creator
             // 
             // sysPatchToolStripMenuItem
             // 
+            this.sysPatchToolStripMenuItem.Enabled = false;
             this.sysPatchToolStripMenuItem.Name = "sysPatchToolStripMenuItem";
             this.sysPatchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sysPatchToolStripMenuItem.Text = "Sys-Patch";
@@ -1314,14 +1315,14 @@ namespace IPS_Patch_Creator
             // weblinksToolStripMenuItem
             // 
             this.weblinksToolStripMenuItem.Name = "weblinksToolStripMenuItem";
-            this.weblinksToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.weblinksToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.weblinksToolStripMenuItem.Text = "Weblinks";
             this.weblinksToolStripMenuItem.Click += new System.EventHandler(this.weblinksToolStripMenuItem_Click);
             // 
             // wildcardsToolStripMenuItem
             // 
             this.wildcardsToolStripMenuItem.Name = "wildcardsToolStripMenuItem";
-            this.wildcardsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wildcardsToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.wildcardsToolStripMenuItem.Text = "Wildcards";
             this.wildcardsToolStripMenuItem.Click += new System.EventHandler(this.wildcardsToolStripMenuItem_Click);
             // 

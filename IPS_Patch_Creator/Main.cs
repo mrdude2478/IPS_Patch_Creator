@@ -62,7 +62,7 @@ namespace IPS_Patch_Creator
         /**************************************************/
         /**************** START OF VARIABLES **************/
         /**************************************************/
-        string Version = "1.5.6-6";
+        string Version = "1.5.7";
         string Loaderpath; //create variable for package3 file path location.
         string shaValue; //create a variable to store the sha256 value.
         string[] goodArray; //create an array to store firmware files we want to check.
@@ -1451,7 +1451,7 @@ namespace IPS_Patch_Creator
                     toggle = 1;
                 }
 
-                else if (SDKVersion >= 16200) //#fw 14.0.0 or higher
+                else if (SDKVersion >= 16200 & SDKVersion < 18300)
                 {
                     if (checkBox_ES_override.Checked == true)
                     {
@@ -1463,6 +1463,22 @@ namespace IPS_Patch_Creator
                     {
                         find = ("FF97......52A9........FFC30491C0035FD6").ToLower();
                         find = find.Replace(".", "..");
+                    }
+                    toggle = 1;
+                }
+
+                else if (SDKVersion >= 18300)
+                {
+                    if (checkBox_ES_override.Checked == true)
+                    {
+                        //get text from es override text box
+                        string es_overide = textBox_es_override.Text.ToLower();
+                        find = (es_overide).ToLower();
+                    }
+                    else
+                    {
+                        find = ("FF97......2A....5.A9................FF.30491C0035FD6").ToLower();
+                        //find = find.Replace(".", "..");
                     }
                     toggle = 1;
                 }
@@ -2289,10 +2305,17 @@ namespace IPS_Patch_Creator
                         toggle = 0;
                     }
 
-                    else if (SDKVersion >= 16200)
+                    else if (SDKVersion >= 16200 & SDKVersion < 18300)
                     {
                         find = ("E0230091..FF97F303002AE0").ToLower(); //patch 3 0x64aa8
                         find2 = (".fdff35a8.").ToLower(); //patch 2 0x654a0
+                        toggle = 0;
+                    }
+
+                    else if (SDKVersion >= 18300)
+                    {
+                        find = ("E0.0091..FF97F303002AE0").ToLower(); //
+                        find2 = (".fdff35a8.").ToLower(); //
                         toggle = 0;
                     }
 
